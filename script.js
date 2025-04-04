@@ -372,24 +372,32 @@ function displayPastLogs() {
     });
 }
 
-// Attach event listeners
-document.getElementById('teeShotInPlay').addEventListener('click', () => toggleStat('teeShotInPlay'));
-document.getElementById('fairwayHit').addEventListener('click', () => toggleStat('fairwayHit'));
-document.getElementById('fairwayUp').addEventListener('click', () => selectArrow('fairway', 'up'));
-document.getElementById('fairwayDown').addEventListener('click', () => selectArrow('fairway', 'down'));
-document.getElementById('fairwayLeft').addEventListener('click', () => selectArrow('fairway', 'left'));
-document.getElementById('fairwayRight').addEventListener('click', () => selectArrow('fairway', 'right'));
-document.getElementById('girHit').addEventListener('click', () => toggleStat('girHit'));
-document.getElementById('girUp').addEventListener('click', () => selectArrow('gir', 'up'));
-document.getElementById('girDown').addEventListener('click', () => selectArrow('gir', 'down'));
-document.getElementById('girLeft').addEventListener('click', () => selectArrow('gir', 'left'));
-document.getElementById('girRight').addEventListener('click', () => selectArrow('gir', 'right'));
-document.getElementById('ngir').addEventListener('click', () => toggleStat('ngir'));
-document.getElementById('twoWedgeShots').addEventListener('click', () => toggleStat('twoWedgeShots'));
-document.getElementById('threePutt').addEventListener('click', () => toggleStat('threePutt'));
-document.getElementById('badPar5').addEventListener('click', () => toggleStat('badPar5'));
-document.getElementById('nextHoleBtn').addEventListener('click', nextHole);
-document.getElementById('endRoundBtn').addEventListener('click', endRound);
+function addListener(id, callback) {
+    const element = document.getElementById(id);
+    if (element) {
+        element.addEventListener('click', callback);
+    } else {
+        console.error(`Element with ID '${id}' not found`);
+    }
+}
+
+addListener('teeShotInPlay', () => toggleStat('teeShotInPlay'));
+addListener('fairwayHit', () => toggleStat('fairwayHit'));
+addListener('fairwayUp', () => selectArrow('fairway', 'up'));
+addListener('fairwayDown', () => selectArrow('fairway', 'down'));
+addListener('fairwayLeft', () => selectArrow('fairway', 'left'));
+addListener('fairwayRight', () => selectArrow('fairway', 'right'));
+addListener('girHit', () => toggleStat('girHit'));
+addListener('girUp', () => selectArrow('gir', 'up'));
+addListener('girDown', () => selectArrow('gir', 'down'));
+addListener('girLeft', () => selectArrow('gir', 'left'));
+addListener('girRight', () => selectArrow('gir', 'right'));
+addListener('ngir', () => toggleStat('ngir'));
+addListener('twoWedgeShots', () => toggleStat('twoWedgeShots'));
+addListener('threePutt', () => toggleStat('threePutt'));
+addListener('badPar5', () => toggleStat('badPar5'));
+addListener('nextHoleBtn', nextHole);
+addListener('endRoundBtn', endRound);
 
 // Initialize
 displayPastLogs();
