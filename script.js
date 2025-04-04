@@ -127,8 +127,8 @@ function selectArrow(stat, direction) {
 }
 
 function toggleStat(statId) {
-    const button = document.getElementById(statId);
     console.log(`Toggling stat: ${statId}`);
+    const button = document.getElementById(statId);
     button.classList.toggle('active');
     const isActive = button.classList.contains('active');
     if (button.classList.contains('negative-default')) {
@@ -137,7 +137,6 @@ function toggleStat(statId) {
         button.textContent = isActive ? 'No' : 'Yes';
     }
 
-    // Show/hide miss rows based on Fairway Hit or GIR
     if (statId === 'fairwayHit') {
         document.getElementById('fairwayMissRow').style.display = isActive ? 'flex' : 'none';
     } else if (statId === 'girHit') {
