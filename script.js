@@ -95,9 +95,9 @@ function updateTrackingScreen() {
     document.querySelectorAll('.stat-button').forEach(button => {
         button.classList.remove('active');
         if (button.classList.contains('negative-default')) {
-            button.textContent = 'No'; // Default to No for negative stats
+            button.textContent = 'No'; // Negative stats default to No
         } else {
-            button.textContent = 'Yes'; // Default to Yes for positive stats
+            button.textContent = 'Yes'; // Positive stats (Tee Shot, Fairway Hit, GIR, NGIR) default to Yes
         }
     });
     document.querySelectorAll('.arrow-btn').forEach(button => {
@@ -105,7 +105,9 @@ function updateTrackingScreen() {
     });
     document.getElementById('holeScore').value = holePars[currentHole - 1];
 
-    // Hide NGIR by default
+    // Hide miss rows by default
+    document.getElementById('fairwayMissRow').style.display = 'none';
+    document.getElementById('girMissRow').style.display = 'none';
     document.getElementById('ngirRow').style.display = 'none';
 }
 
@@ -121,19 +123,25 @@ function selectArrow(stat, direction) {
         }
         if (btn.classList.contains('active')) anyActive = true;
     });
-    // Show NGIR row if GIR miss is selected
-    if (stat === 'gir') {
-        document.getElementById('ngirRow').style.display = anyActive ? 'flex' : 'none';
-    }
+    // No need to toggle visibility here since it's handled by toggleStat
 }
 
 function toggleStat(statId) {
     const button = document.getElementById(statId);
     button.classList.toggle('active');
+    const isActive = button.classList.contains('active');
     if (button.classList.contains('negative-default')) {
-        button.textContent = button.classList.contains('active') ? 'Yes' : 'No';
+        button.textContent = isActive ? 'Yes' : 'No';
     } else {
-        button.textContent = button.classList.contains('active') ? 'No' : 'Yes';
+        button.textContent = isActive ? 'No' : 'Yes';
+    }
+
+    // Show/hide miss rows based on Fairway Hit or GIR
+    if (statId === 'fairwayHit') {
+        document.getElementById('fairwayMissRow').style.display = isActive ? 'flex' : 'none';
+    } else if (statId === 'girHit') {
+        document.getElementById('girMissRow').style.display = isActive ? 'flex' : 'none';
+        document.getElementById('ngirRow').style.display = isActive ? 'flex' : 'none';
     }
 }
 
@@ -171,12 +179,14 @@ function saveCurrentHole() {
     const holeStats = {
         hole: currentHole,
         teeShotInPlay: document.getElementById('teeShotInPlay').classList.contains('active'),
+        fairwayHit: !document.getElementById('fairwayHit').classList.contains('active'), // Yes = not active
         fairwayMiss: {
             up: document.getElementById('fairwayUp').classList.contains('active'),
             down: document.getElementById('fairwayDown').classList.contains('active'),
             left: document.getElementById('fairwayLeft').classList.contains('active'),
             right: document.getElementById('fairwayRight').classList.contains('active')
         },
+        gir: !document.getElementById('girHit').classList.contains('active'), // Yes = not active
         girMiss: {
             up: document.getElementById('girUp').classList.contains('active'),
             down: document.getElementById('girDown').classList.contains('active'),
@@ -186,7 +196,7 @@ function saveCurrentHole() {
         ngir: document.getElementById('ngir').classList.contains('active'),
         twoWedgeShots: document.getElementById('twoWedgeShots').classList.contains('active'),
         threePutt: document.getElementById('threePutt').classList.contains('active'),
-        badPar5: par === 5 ? manualBadPar5 || calculatedBadPar5 : false, // Use manual if set, else calculated
+        badPar5: par === 5 ? manualBadPar5 || calculatedBadPar5 : false,
         score: score
     };
     currentLog.holes.push(holeStats);
@@ -293,8 +303,10 @@ function displayPastLogs() {
                         <th>Hole</th>
                         <th>Par</th>
                         <th>Score</th>
+                        <th>Fairway Hit</th>
                         <th>Fairway Miss</th>
-                        <th>GIR Miss</th>
+                        <th>GIR</th>
+                        <th>Green Miss</th>
                         <th>NGIR</th>
                         <th>Two+ Wedges</th>
                         <th>Three Putt</th>
@@ -311,7 +323,9 @@ function displayPastLogs() {
                     <td>${hole.hole}</td>
                     <td>${holePars[hole.hole - 1]}</td>
                     <td>${hole.score}</td>
+                    <td>${hole.fairwayHit ? 'Yes' : 'No'}</td>
                     <td>${fairwayMiss || '-'}</td>
+                    <td>${hole.gir ? 'Yes' : 'No'}</td>
                     <td>${girMiss || '-'}</td>
                     <td>${hole.ngir ? 'Yes' : 'No'}</td>
                     <td>${hole.twoWedgeShots ? 'Yes' : 'No'}</td>
@@ -327,12 +341,14 @@ function displayPastLogs() {
             <p>Holes Played: ${holesPlayed}/${log.roundLength}</p>
             <p>Total Score: ${totalScore}</p>
             <p>Tee Shots in Play: ${log.holes.filter(h => h.teeShotInPlay).length}/${holesPlayed}</p>
+            <p>Fairway Hits: ${log.holes.filter(h => h.fairwayHit).length}/${holesPlayed}</p>
             <p>Fairway Misses (Up/Down/Left/Right): ${
                 log.holes.filter(h => h.fairwayMiss && h.fairwayMiss.up).length
             }/${log.holes.filter(h => h.fairwayMiss && h.fairwayMiss.down).length
             }/${log.holes.filter(h => h.fairwayMiss && h.fairwayMiss.left).length
             }/${log.holes.filter(h => h.fairwayMiss && h.fairwayMiss.right).length}</p>
-            <p>GIR Misses (Up/Down/Left/Right): ${
+            <p>GIR: ${log.holes.filter(h => h.gir).length}/${holesPlayed}</p>
+            <p>Green Misses (Up/Down/Left/Right): ${
                 log.holes.filter(h => h.girMiss && h.girMiss.up).length
             }/${log.holes.filter(h => h.girMiss && h.girMiss.down).length
             }/${log.holes.filter(h => h.girMiss && h.girMiss.left).length
@@ -346,7 +362,6 @@ function displayPastLogs() {
         `;
         pastLogsDiv.appendChild(logDiv);
 
-        // Add event listener with proper scoping
         const toggleButton = document.getElementById(`toggleDetails-${index}`);
         toggleButton.addEventListener('click', () => {
             const details = document.getElementById(`holeDetails-${index}`);
@@ -357,14 +372,13 @@ function displayPastLogs() {
 }
 
 // Attach event listeners
-document.getElementById('startNewLogBtn').addEventListener('click', startNewLog);
-document.getElementById('resumeRoundBtn').addEventListener('click', resumeRound);
-document.getElementById('beginTrackingBtn').addEventListener('click', beginTracking);
 document.getElementById('teeShotInPlay').addEventListener('click', () => toggleStat('teeShotInPlay'));
+document.getElementById('fairwayHit').addEventListener('click', () => toggleStat('fairwayHit'));
 document.getElementById('fairwayUp').addEventListener('click', () => selectArrow('fairway', 'up'));
 document.getElementById('fairwayDown').addEventListener('click', () => selectArrow('fairway', 'down'));
 document.getElementById('fairwayLeft').addEventListener('click', () => selectArrow('fairway', 'left'));
 document.getElementById('fairwayRight').addEventListener('click', () => selectArrow('fairway', 'right'));
+document.getElementById('girHit').addEventListener('click', () => toggleStat('girHit'));
 document.getElementById('girUp').addEventListener('click', () => selectArrow('gir', 'up'));
 document.getElementById('girDown').addEventListener('click', () => selectArrow('gir', 'down'));
 document.getElementById('girLeft').addEventListener('click', () => selectArrow('gir', 'left'));
@@ -373,8 +387,6 @@ document.getElementById('ngir').addEventListener('click', () => toggleStat('ngir
 document.getElementById('twoWedgeShots').addEventListener('click', () => toggleStat('twoWedgeShots'));
 document.getElementById('threePutt').addEventListener('click', () => toggleStat('threePutt'));
 document.getElementById('badPar5').addEventListener('click', () => toggleStat('badPar5'));
-document.getElementById('nextHoleBtn').addEventListener('click', nextHole);
-document.getElementById('endRoundBtn').addEventListener('click', endRound);
 
 // Initialize
 displayPastLogs();
