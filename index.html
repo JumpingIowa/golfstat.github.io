@@ -62,6 +62,10 @@
             </div>
             <div class="stat-row">
                 <div class="stat-label">Fairway Hit</div>
+                <button class="stat-button" id="fairwayHit">Yes</button>
+            </div>
+            <div class="stat-row" id="fairwayMissRow" style="display: none;">
+                <div class="stat-label">Fairway Miss?</div>
                 <div class="arrow-buttons">
                     <button class="arrow-btn" id="fairwayUp">↑</button>
                     <button class="arrow-btn" id="fairwayDown">↓</button>
@@ -70,7 +74,11 @@
                 </div>
             </div>
             <div class="stat-row">
-                <div class="stat-label" title="Green in Regulation">GIR</div>
+                <div class="stat-label">GIR</div>
+                <button class="stat-button" id="girHit">Yes</button>
+            </div>
+            <div class="stat-row" id="girMissRow" style="display: none;">
+                <div class="stat-label">Green Miss?</div>
                 <div class="arrow-buttons">
                     <button class="arrow-btn" id="girUp">↑</button>
                     <button class="arrow-btn" id="girDown">↓</button>
@@ -99,7 +107,11 @@
         <button class="end-round-btn" id="endRoundBtn">End Round</button>
     </div>
 
-    <script src="script.js"></script>
+    <script src="screens.js"></script>
+    <script src="data.js"></script>
+    <script src="tracking.js"></script>
+    <script src="rounds.js"></script>
+    <script src="main.js"></script>
 
     <dialog id="endRoundDialog">
         <h2>End Round Confirmation</h2>

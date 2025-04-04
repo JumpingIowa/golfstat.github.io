@@ -105,8 +105,10 @@ function updateTrackingScreen() {
     });
     document.getElementById('holeScore').value = holePars[currentHole - 1];
 
-    // Hide NGIR by default
+    // Hide NGIR, Fairway Miss, and Green Miss by default
     document.getElementById('ngirRow').style.display = 'none';
+    document.getElementById('fairwayMissRow').style.display = 'none';
+    document.getElementById('girMissRow').style.display = 'none';
 }
 
 function selectArrow(stat, direction) {
@@ -135,6 +137,15 @@ function toggleStat(statId) {
     } else {
         button.textContent = button.classList.contains('active') ? 'No' : 'Yes';
     }
+    // Show Fairway Miss? row when Fairway Hit is No
+    if (statId === 'fairwayHit') {
+        document.getElementById('fairwayMissRow').style.display = button.classList.contains('active') ? 'flex' : 'none';
+    }
+    // Show Green Miss? row when GIR is No
+    if (statId === 'girHit') {
+        document.getElementById('girMissRow').style.display = button.classList.contains('active') ? 'flex' : 'none';
+        document.getElementById('ngirRow').style.display = button.classList.contains('active') ? 'flex' : 'none'; // Keep NGIR tied to GIR miss
+    }
 }
 
 function selectArrow(stat, direction) {
@@ -149,9 +160,7 @@ function selectArrow(stat, direction) {
         }
         if (btn.classList.contains('active')) anyActive = true;
     });
-    if (stat === 'gir') {
-        document.getElementById('ngirRow').style.display = anyActive ? 'flex' : 'none';
-    }
+    // Note: NGIR visibility is now handled by girHit toggle, not arrow selection directly
 }
 
 function saveCurrentHole() {
@@ -171,12 +180,14 @@ function saveCurrentHole() {
     const holeStats = {
         hole: currentHole,
         teeShotInPlay: document.getElementById('teeShotInPlay').classList.contains('active'),
+        fairwayHit: !document.getElementById('fairwayHit').classList.contains('active'), // Yes = not active
         fairwayMiss: {
             up: document.getElementById('fairwayUp').classList.contains('active'),
             down: document.getElementById('fairwayDown').classList.contains('active'),
             left: document.getElementById('fairwayLeft').classList.contains('active'),
             right: document.getElementById('fairwayRight').classList.contains('active')
         },
+        girHit: !document.getElementById('girHit').classList.contains('active'), // Yes = not active
         girMiss: {
             up: document.getElementById('girUp').classList.contains('active'),
             down: document.getElementById('girDown').classList.contains('active'),
@@ -186,7 +197,7 @@ function saveCurrentHole() {
         ngir: document.getElementById('ngir').classList.contains('active'),
         twoWedgeShots: document.getElementById('twoWedgeShots').classList.contains('active'),
         threePutt: document.getElementById('threePutt').classList.contains('active'),
-        badPar5: par === 5 ? manualBadPar5 || calculatedBadPar5 : false, // Use manual if set, else calculated
+        badPar5: par === 5 ? manualBadPar5 || calculatedBadPar5 : false,
         score: score
     };
     currentLog.holes.push(holeStats);
@@ -361,6 +372,8 @@ document.getElementById('startNewLogBtn').addEventListener('click', startNewLog)
 document.getElementById('resumeRoundBtn').addEventListener('click', resumeRound);
 document.getElementById('beginTrackingBtn').addEventListener('click', beginTracking);
 document.getElementById('teeShotInPlay').addEventListener('click', () => toggleStat('teeShotInPlay'));
+document.getElementById('fairwayHit').addEventListener('click', () => toggleStat('fairwayHit'));
+document.getElementById('girHit').addEventListener('click', () => toggleStat('girHit'));
 document.getElementById('fairwayUp').addEventListener('click', () => selectArrow('fairway', 'up'));
 document.getElementById('fairwayDown').addEventListener('click', () => selectArrow('fairway', 'down'));
 document.getElementById('fairwayLeft').addEventListener('click', () => selectArrow('fairway', 'left'));
