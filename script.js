@@ -128,6 +128,7 @@ function selectArrow(stat, direction) {
 
 function toggleStat(statId) {
     const button = document.getElementById(statId);
+    console.log(`Toggling stat: ${statId}`);
     button.classList.toggle('active');
     const isActive = button.classList.contains('active');
     if (button.classList.contains('negative-default')) {
@@ -387,6 +388,8 @@ document.getElementById('ngir').addEventListener('click', () => toggleStat('ngir
 document.getElementById('twoWedgeShots').addEventListener('click', () => toggleStat('twoWedgeShots'));
 document.getElementById('threePutt').addEventListener('click', () => toggleStat('threePutt'));
 document.getElementById('badPar5').addEventListener('click', () => toggleStat('badPar5'));
+document.getElementById('nextHoleBtn').addEventListener('click', nextHole);
+document.getElementById('endRoundBtn').addEventListener('click', endRound);
 
 // Initialize
 displayPastLogs();
