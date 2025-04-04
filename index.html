@@ -48,64 +48,56 @@
         <button class="next-hole-btn" id="beginTrackingBtn">Start Tracking</button>
     </div>
 
-<!-- Tracking Screen -->
-<div id="trackingScreen" class="screen">
-    <h1 id="holeTitle">Hole 1 - Par 4</h1>
-    <div class="tracking-card">
-        <div class="score-input">
-            <label for="holeScore">Score:</label><br>
-            <input type="number" id="holeScore" min="1" value="4">
-        </div>
-        <div class="stat-row">
-            <div class="stat-label">Tee Shot in Play</div>
-            <button class="stat-button" id="teeShotInPlay">Yes</button>
-        </div>
-        <div class="stat-row">
-            <div class="stat-label">Fairway Hit?</div>
-            <button class="stat-button" id="fairwayHit">Yes</button>
-        </div>
-        <div class="stat-row" id="fairwayMissRow" style="display: none;">
-            <div class="stat-label">Fairway Miss?</div>
-            <div class="arrow-buttons">
-                <button class="arrow-btn" id="fairwayUp">↑</button>
-                <button class="arrow-btn" id="fairwayDown">↓</button>
-                <button class="arrow-btn" id="fairwayLeft">←</button>
-                <button class="arrow-btn" id="fairwayRight">→</button>
+    <!-- Tracking Screen -->
+    <div id="trackingScreen" class="screen">
+        <h1 id="holeTitle">Hole 1 - Par 4</h1>
+        <div class="tracking-card">
+            <div class="score-input">
+                <label for="holeScore">Score:</label><br>
+                <input type="number" id="holeScore" min="1" value="4">
+            </div>
+            <div class="stat-row">
+                <div class="stat-label">Tee Shot in Play</div>
+                <button class="stat-button" id="teeShotInPlay">Yes</button>
+            </div>
+            <div class="stat-row">
+                <div class="stat-label">Fairway Hit</div>
+                <div class="arrow-buttons">
+                    <button class="arrow-btn" id="fairwayUp">↑</button>
+                    <button class="arrow-btn" id="fairwayDown">↓</button>
+                    <button class="arrow-btn" id="fairwayLeft">←</button>
+                    <button class="arrow-btn" id="fairwayRight">→</button>
+                </div>
+            </div>
+            <div class="stat-row">
+                <div class="stat-label" title="Green in Regulation">GIR</div>
+                <div class="arrow-buttons">
+                    <button class="arrow-btn" id="girUp">↑</button>
+                    <button class="arrow-btn" id="girDown">↓</button>
+                    <button class="arrow-btn" id="girLeft">←</button>
+                    <button class="arrow-btn" id="girRight">→</button>
+                </div>
+            </div>
+            <div class="stat-row" id="ngirRow">
+                <div class="stat-label" title="Stat from Jon Sherman @practicalgolf: When you miss a green, if you are: Within 20-30 yards, Not short-sided or in a bunker, Straightforward wedge shot">NGIR</div>
+                <button class="stat-button" id="ngir">Yes</button>
+            </div>
+            <div class="stat-row">
+                <div class="stat-label">2+ Wedge Shots</div>
+                <button class="stat-button negative-default" id="twoWedgeShots">No</button>
+            </div>
+            <div class="stat-row">
+                <div class="stat-label">Three Putt</div>
+                <button class="stat-button negative-default" id="threePutt">No</button>
+            </div>
+            <div class="stat-row par5-stat">
+                <div class="stat-label">Bogey+ on Par 5</div>
+                <button class="stat-button negative-default" id="badPar5">No</button>
             </div>
         </div>
-        <div class="stat-row">
-            <div class="stat-label">GIR?</div>
-            <button class="stat-button" id="girHit">Yes</button>
-        </div>
-        <div class="stat-row" id="girMissRow" style="display: none;">
-            <div class="stat-label">Green Miss?</div>
-            <div class="arrow-buttons">
-                <button class="arrow-btn" id="girUp">↑</button>
-                <button class="arrow-btn" id="girDown">↓</button>
-                <button class="arrow-btn" id="girLeft">←</button>
-                <button class="arrow-btn" id="girRight">→</button>
-            </div>
-        </div>
-        <div class="stat-row" id="ngirRow" style="display: none;">
-            <div class="stat-label" title="Stat from Jon Sherman @practicalgolf: When you miss a green, if you are: Within 20-30 yards, Not short-sided or in a bunker, Straightforward wedge shot">NGIR</div>
-            <button class="stat-button" id="ngir">Yes</button>
-        </div>
-        <div class="stat-row">
-            <div class="stat-label">2+ Wedge Shots</div>
-            <button class="stat-button negative-default" id="twoWedgeShots">No</button>
-        </div>
-        <div class="stat-row">
-            <div class="stat-label">Three Putt</div>
-            <button class="stat-button negative-default" id="threePutt">No</button>
-        </div>
-        <div class="stat-row par5-stat">
-            <div class="stat-label">Bogey+ on Par 5</div>
-            <button class="stat-button negative-default" id="badPar5">No</button>
-        </div>
+        <button class="next-hole-btn" id="nextHoleBtn">Next Hole</button>
+        <button class="end-round-btn" id="endRoundBtn">End Round</button>
     </div>
-    <button class="next-hole-btn" id="nextHoleBtn">Next Hole</button>
-    <button class="end-round-btn" id="endRoundBtn">End Round</button>
-</div>
 
     <script src="script.js"></script>
 
