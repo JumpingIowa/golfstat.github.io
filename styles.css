@@ -1,0 +1,326 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 10px;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+.screen {
+    display: none;
+    margin: 0 auto;
+    max-width: 400px;
+}
+
+.screen.active {
+    display: block;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.next-hole-btn {
+    background-color: #4CAF50;
+    color: white;
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.next-hole-btn:hover {
+    background-color: #45a049;
+}
+
+.end-round-btn {
+    background-color: #ff4444;
+    color: white;
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.end-round-btn:hover {
+    background-color: #cc0000;
+}
+
+.resume-round-btn {
+    background-color: #007bff;
+    color: white;
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.resume-round-btn:hover {
+    background-color: #0056b3;
+}
+
+input, select {
+    padding: 8px;
+    margin: 5px;
+    width: 100%;
+    max-width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.log-entry {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.hole-details {
+    margin-top: 10px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+.hole-details table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.hole-details th, .hole-details td {
+    border: 1px solid #ddd;
+    padding: 5px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.hole-details th {
+    background-color: #f0f0f0;
+}
+
+/* Tracking Screen Styles */
+.tracking-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.stat-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+    padding: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.stat-label {
+    flex: 1;
+    text-align: left;
+    font-size: 16px;
+}
+
+.stat-button {
+    background-color: #4CAF50; /* Green for Yes */
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.stat-button.active {
+    background-color: #ff4444; /* Red for No */
+}
+
+/* For stats where No is positive */
+.stat-button.negative-default {
+    background-color: #4CAF50; /* Green for No */
+    color: white;
+}
+
+.stat-button.negative-default.active {
+    background-color: #ff4444; /* Red for Yes */
+}
+
+/* Tooltip styles */
+.stat-label[title] {
+    position: relative;
+}
+
+.stat-label[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+.arrow-btn {
+    background-color: #ddd;
+    color: #333;
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.arrow-btn.active {
+    background-color: #ff4444;
+    color: white;
+}
+
+.score-input {
+    margin: 10px 0;
+}
+
+h1 {
+    color: #333;
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+h2 {
+    color: #555;
+    font-size: 20px;
+}
+
+.collapsible-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.collapsible-btn:hover {
+    background-color: #0056b3;
+}
+
+.hole-details {
+    display: none; /* Default to collapsed */
+}
+
+.hole-details.active {
+    display: block; /* Show when active */
+}
+
+@media (max-width: 600px) {
+    .screen {
+        max-width: 100%;
+    }
+    .stat-row {
+        flex-wrap: wrap;
+    }
+    .stat-label {
+        font-size: 14px;
+    }
+    .stat-button, .arrow-btn {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+}
+
+dialog {
+    border: none;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    text-align: center;
+}
+
+dialog h2 {
+    margin-top: 0;
+    font-size: 1.5em;
+}
+
+dialog p {
+    margin: 10px 0;
+}
+
+.dialog-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.dialog-buttons button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#endRoundYes {
+    background-color: #28a745;
+    color: white;
+}
+
+#endRoundYes:hover {
+    background-color: #218838;
+}
+
+#endRoundNo {
+    background-color: #dc3545;
+    color: white;
+}
+
+#endRoundNo:hover {
+    background-color: #c82333;
+}
+
+#endRoundContinue {
+    background-color: #6c757d;
+    color: white;
+}
+
+#endRoundContinue:hover {
+    background-color: #5a6268;
+}
+
+.hole-details {
+    margin-top: 10px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    max-width: 100%; /* Ensure it fits within parent */
+}
+
+.hole-details table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    min-width: 600px; /* Set a minimum width to maintain readability */
+}
+
+.hole-details th, .hole-details td {
+    border: 1px solid #ddd;
+    padding: 5px;
+    text-align: left;
+    font-size: 14px;
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+.stat-label {
+    flex: 1;
+    text-align: left;
+    font-size: 16px;
+    position: relative; /* For tooltip positioning */
+}

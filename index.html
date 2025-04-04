@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golf Stats Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Home Screen -->
+    <div id="homeScreen" class="screen active">
+        <h1>Golf Stats Tracker</h1>
+        <button class="next-hole-btn" id="startNewLogBtn">Start New Log</button>
+        <button class="resume-round-btn" id="resumeRoundBtn" style="display: none;">Resume Last Round</button>
+        <h2>Past Logs</h2>
+        <div id="pastLogs"></div>
+    </div>
+
+    <!-- New Log Screen -->
+    <div id="newLogScreen" class="screen">
+        <h1>New Log</h1>
+        <div>
+            <label for="logDate">Date:</label><br>
+            <input type="date" id="logDate" required>
+        </div>
+        <div>
+            <label for="course">Course:</label><br>
+            <input type="text" id="course" placeholder="Enter course name" required>
+        </div>
+        <div>
+            <label for="tees">Tees:</label><br>
+            <select id="tees" required>
+                <option value="senior">Senior</option>
+                <option value="red">Red</option>
+                <option value="white">White</option>
+                <option value="blue">Blue</option>
+                <option value="black">Black</option>
+            </select>
+        </div>
+        <!-- Inside the #newLogScreen div, after the tees dropdown -->
+        <div>
+            <label for="roundLength">Round Length:</label><br>
+            <select id="roundLength" required>
+                <option value="18">18 Holes</option>
+                <option value="9">9 Holes</option>
+            </select>
+        </div>
+        <button class="next-hole-btn" id="beginTrackingBtn">Start Tracking</button>
+    </div>
+
+    <!-- Tracking Screen -->
+    <div id="trackingScreen" class="screen">
+        <h1 id="holeTitle">Hole 1 - Par 4</h1>
+        <div class="tracking-card">
+            <div class="score-input">
+                <label for="holeScore">Score:</label><br>
+                <input type="number" id="holeScore" min="1" value="4">
+            </div>
+            <div class="stat-row">
+                <div class="stat-label">Tee Shot in Play</div>
+                <button class="stat-button" id="teeShotInPlay">Yes</button>
+            </div>
+            <div class="stat-row">
+                <div class="stat-label">Fairway Hit</div>
+                <div class="arrow-buttons">
+                    <button class="arrow-btn" id="fairwayUp">↑</button>
+                    <button class="arrow-btn" id="fairwayDown">↓</button>
+                    <button class="arrow-btn" id="fairwayLeft">←</button>
+                    <button class="arrow-btn" id="fairwayRight">→</button>
+                </div>
+            </div>
+            <div class="stat-row">
+                <div class="stat-label" title="Green in Regulation">GIR</div>
+                <div class="arrow-buttons">
+                    <button class="arrow-btn" id="girUp">↑</button>
+                    <button class="arrow-btn" id="girDown">↓</button>
+                    <button class="arrow-btn" id="girLeft">←</button>
+                    <button class="arrow-btn" id="girRight">→</button>
+                </div>
+            </div>
+            <div class="stat-row" id="ngirRow">
+                <div class="stat-label" title="Stat from Jon Sherman @practicalgolf: When you miss a green, if you are: Within 20-30 yards, Not short-sided or in a bunker, Straightforward wedge shot">NGIR</div>
+                <button class="stat-button" id="ngir">Yes</button>
+            </div>
+            <div class="stat-row">
+                <div class="stat-label">2+ Wedge Shots</div>
+                <button class="stat-button negative-default" id="twoWedgeShots">No</button>
+            </div>
+            <div class="stat-row">
+                <div class="stat-label">Three Putt</div>
+                <button class="stat-button negative-default" id="threePutt">No</button>
+            </div>
+            <div class="stat-row par5-stat">
+                <div class="stat-label">Bogey+ on Par 5</div>
+                <button class="stat-button negative-default" id="badPar5">No</button>
+            </div>
+        </div>
+        <button class="next-hole-btn" id="nextHoleBtn">Next Hole</button>
+        <button class="end-round-btn" id="endRoundBtn">End Round</button>
+    </div>
+
+    <script src="script.js"></script>
+
+    <dialog id="endRoundDialog">
+        <h2>End Round Confirmation</h2>
+        <p id="endRoundMessage"></p>
+        <p>Yes/No will determine if you will save the current hole and end the round.</p>
+        <div class="dialog-buttons">
+            <button id="endRoundYes">Yes</button>
+            <button id="endRoundNo">No</button>
+            <button id="endRoundContinue">Continue Round</button>
+        </div>
+    </dialog>
+</body>
+</html>
