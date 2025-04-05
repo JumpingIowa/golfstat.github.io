@@ -3,6 +3,7 @@ function startNewLog() {
     localStorage.removeItem('currentHole');
     document.getElementById('resumeRoundBtn').style.display = 'none';
     showScreen('newLog');
+    setDefaultCourse(); // Set default course when showing new log screen
 }
 
 function resumeRound() {

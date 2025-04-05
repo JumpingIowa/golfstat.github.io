@@ -10,9 +10,19 @@
     <!-- Home Screen -->
     <div id="homeScreen" class="screen active">
         <h1>Golf Stats Tracker</h1>
+        <div>
+            <label for="favoriteCourse">Favorite Course:</label><br>
+            <input type="text" id="favoriteCourse" placeholder="Enter favorite course">
+            <button id="setFavoriteCourseBtn">Set</button>
+        </div>
         <button class="next-hole-btn" id="startNewLogBtn">Start New Log</button>
         <button class="resume-round-btn" id="resumeRoundBtn" style="display: none;">Resume Last Round</button>
         <h2>Past Logs</h2>
+        <div class="log-control-buttons">
+            <button id="clearLogsBtn">Clear</button>
+            <button id="toggleLogsBtn">Hide</button>
+            <button id="deleteLogsBtn">Delete</button>
+        </div>
         <div id="pastLogs"></div>
     </div>
 
@@ -37,7 +47,6 @@
                 <option value="black">Black</option>
             </select>
         </div>
-        <!-- Inside the #newLogScreen div, after the tees dropdown -->
         <div>
             <label for="roundLength">Round Length:</label><br>
             <select id="roundLength" required>

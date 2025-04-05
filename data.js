@@ -7,9 +7,9 @@ let currentLog = {
 let currentHole = 1;
 
 const holePars = Array(18).fill(0).map((_, i) => {
-    if (i % 4 === 0) return 5; // Par 5 every 4th hole
-    if (i % 2 === 0) return 4; // Par 4 otherwise
-    return 3; // Par 3
+    if (i % 4 === 0) return 5;
+    if (i % 2 === 0) return 4;
+    return 3;
 });
 
 function saveLog() {
@@ -22,6 +22,10 @@ function saveLog() {
 function displayPastLogs() {
     const pastLogsDiv = document.getElementById('pastLogs');
     const savedLogs = JSON.parse(localStorage.getItem('golfLogs') || '[]');
+    
+    // Sort logs by date, most recent first
+    savedLogs.sort((a, b) => new Date(b.date) - new Date(a.date));
+    
     pastLogsDiv.innerHTML = '';
 
     savedLogs.forEach((log, index) => {
@@ -97,4 +101,20 @@ function displayPastLogs() {
             toggleButton.textContent = details.classList.contains('active') ? 'Hide Hole Details' : 'Show Hole Details';
         });
     });
+}
+
+function getFavoriteCourse() {
+    return localStorage.getItem('favoriteCourse') || '';
+}
+
+function clearLogsDisplay() {
+    document.getElementById('pastLogs').innerHTML = '';
+    // Placeholder for future "undo" functionality; logs remain in localStorage
+}
+
+function deleteLogs() {
+    if (confirm('Are you sure you want to delete all logs? This cannot be undone.')) {
+        localStorage.removeItem('golfLogs');
+        displayPastLogs();
+    }
 }

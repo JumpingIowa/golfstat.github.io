@@ -324,3 +324,34 @@ dialog p {
     font-size: 16px;
     position: relative; /* For tooltip positioning */
 }
+
+/* Add this near the existing button styles */
+.log-control-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.log-control-buttons button {
+    padding: 6px 12px;
+    font-size: 14px;
+    background-color: #6c757d; /* Gray default */
+    color: white;
+}
+
+.log-control-buttons #clearLogsBtn:hover {
+    background-color: #5a6268;
+}
+
+.log-control-buttons #toggleLogsBtn:hover {
+    background-color: #5a6268;
+}
+
+.log-control-buttons #deleteLogsBtn {
+    background-color: #dc3545; /* Red for delete */
+}
+
+.log-control-buttons #deleteLogsBtn:hover {
+    background-color: #c82333;
+}
